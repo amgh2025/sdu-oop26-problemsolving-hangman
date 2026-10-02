@@ -3,7 +3,9 @@
 //Console.WriteLine(secret);
 
 
-bool[] guesses = new bool['z'-'a']; // false -> has not been guessed
+bool[] guesses = new bool['z' - 'a']; // false -> has not been guessed
+
+int lives = 10;
 
 // helpers
 
@@ -32,6 +34,25 @@ void print_status () {
       Console.Write(( guesses[char2int(c)] ? c : '*'));
     }
     Console.WriteLine("");
+
+    // lives left
+      Console.WriteLine(lives+" lives left");
+}
+
+
+bool done () {
+  for (int i=0 ; i<secret.Length ; i++) {
+    char c = secret[i];
+    if (!guesses[char2int(c)]) return false;
+  }
+  return true;
+}
+
+bool guess_in_secret (int guess) {
+  foreach (char c in secret) {
+    if (char2int(c) == guess) return true;
+  }
+  return false;
 }
 
 
@@ -50,12 +71,27 @@ while (true)
     //char c = input[0];
     char c = Char.ToLower(input[0]);
 
-    if (c<'a' || c>'z') {
+    if (c < 'a' || c > 'z')
+    {
         Console.WriteLine("Only letters acceptable");
         continue;
-      }
+    }
 
     Console.WriteLine(c);
 
-    guesses[char2int(c)]=true;
+    guesses[char2int(c)] = true;
+
+    int guess = char2int(c);
+      if (guesses[guess]==false && !guess_in_secret(guess)) lives--;
+      guesses[guess] = true;
+
+      if (done()) {
+        Console.WriteLine("Yay!");
+        break;
+      }
+
+      if (lives==0) {
+        Console.WriteLine("Oh nooo!!!");
+        break;
+      }
 }
