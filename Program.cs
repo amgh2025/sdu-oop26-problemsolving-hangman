@@ -23,7 +23,15 @@ void print_status () {
       Console.Write(int2char(i));
     }
   }
-  Console.WriteLine("");
+    Console.WriteLine("");
+
+    // secret
+    Console.Write("Word: ");
+    for (int i=0 ; i<secret.Length ; i++) {
+      char c = secret[i];
+      Console.Write(( guesses[char2int(c)] ? c : '*'));
+    }
+    Console.WriteLine("");
 }
 
 
