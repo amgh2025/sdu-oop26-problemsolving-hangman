@@ -3,7 +3,7 @@
 //Console.WriteLine(secret);
 
 
-bool[] guesses = new bool['z' - 'a']; // false -> has not been guessed
+bool[] guesses = new bool['z' - 'a'+1]; // false -> has not been guessed
 
 int lives = 10;
 
